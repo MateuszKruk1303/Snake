@@ -1,4 +1,5 @@
-class segment {
+class Segment {
+
 
     constructor(x, y) {
 
@@ -8,44 +9,97 @@ class segment {
     }
 
     movepX() {
-        this.x++;
+        if (this.x < 97) {
+
+            this.x += 1;
+
+        } else {
+
+        }
     }
 
     movenX() {
-        this.x--;
+        if (this.x > 0) {
+
+            this.x -= 1;
+
+        } else {
+
+
+        }
+
     }
 
     movepY() {
-        this.y++;
+        if (this.y > 0) {
+
+            this.y -= 1;
+
+        } else {
+
+
+        }
+
     }
 
     movenY() {
-        this.y--;
+
+        if (this.y < 96) {
+
+            this.y += 1;
+
+        } else {
+
+
+        }
+
     }
 
 }
 
-const element = document.querySelector("#segment")
-const segment = new Segment(3, 5);
+// left - 37
+// up - 38
+//right - 39
+//down - 40
+
+var flag = 0;
+const element = document.querySelector(".segment")
+const segmento = new Segment(40, 10);
 
 const direction = function (e) {
 
-
-    if (e.keyCode == 38) {
-        obiekt.style.setProperty('top', segment.movepY() + "%");
-        console.log('strzalkagora');
-
+    if (e.keyCode == 37) {
+        flag = 0;
+    } else if (e.keyCode == 38) {
+        flag = 1;
     } else if (e.keyCode == 39) {
-        obiekt.style.setProperty('left', segment.movenX() + "px");
-        console.log('strzalkaprawo');
-
+        flag = 2;
     } else if (e.keyCode == 40) {
-        obiekt.style.setProperty('top', y + "px");
-        console.log('strzalkadol');
-    } else if (e.keyCode == 37) {
-        obiekt.style.setProperty('left', x + "px");
-        console.log('strzalkalewo');
+        flag = 3;
     }
 }
 
-window.addEventListener('keydown', ruch);
+const directionm = function () {
+
+    if (flag == 0) {
+        segmento.movenX()
+        element.style.setProperty('left', segmento.x + "%");
+        console.log('moving left');
+    } else if (flag == 1) {
+        segmento.movepY();
+        element.style.setProperty('top', segmento.y + "%");
+        console.log('strzalkagora');
+    } else if (flag == 2) {
+        segmento.movepX();
+        element.style.setProperty('left', segmento.x + "%");
+        console.log('strzalkaprawo');
+    } else if (flag == 3) {
+        segmento.movenY()
+        element.style.setProperty('top', segmento.y + "%");
+        console.log('strzalkadol');
+    }
+}
+
+
+window.addEventListener('keydown', direction);
+working = window.setInterval(directionm, 100);
