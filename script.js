@@ -5,7 +5,7 @@ class Segment {
 
         this.x = x;
         this.y = y;
-        this.points = 0;
+        this.points = [];
 
     }
 
@@ -58,6 +58,15 @@ class Segment {
 
 }
 
+class Backsegment extends Segment {
+
+    constructor(x, y) {
+
+        super(x, y)
+
+    }
+}
+
 
 // left - 37
 // up - 38
@@ -71,6 +80,11 @@ var randX = 0;
 var randX = 0;
 var hitboxX = 0;
 var hitboxY = 0;
+var y = 0;
+var segments = [];
+const s = [];
+s[0] = segmento;
+
 
 
 function randomInt(min, max) {
@@ -96,21 +110,45 @@ const direction = function (e) {
 const directionm = function () {
 
     if (flag == 0) {
-        segmento.movenX()
-        element.style.setProperty('left', segmento.x + "px");
-        console.log('moving left');
+        for (var i = 0; i <= s.length; i++) {
+
+            s[i].movenX();
+            element.style.setProperty('left', segmento.x + "px");
+            console.log('moving left');
+
+        }
+
     } else if (flag == 1) {
-        segmento.movepY();
-        element.style.setProperty('top', segmento.y + "px");
-        console.log('strzalkagora');
+
+        for (var i = 0; i <= s.length; i++) {
+
+            s[i].movepY();
+            element.style.setProperty('top', segmento.y + "px");
+            console.log('strzalkagora');
+
+        }
+
     } else if (flag == 2) {
-        segmento.movepX();
-        element.style.setProperty('left', segmento.x + "px");
-        console.log('strzalkaprawo');
+
+        for (var i = 0; i <= s.length; i++) {
+
+            s[i].movepX();
+            element.style.setProperty('left', segmento.x + "px");
+            console.log('strzalkaprawo');
+
+        }
+
+
     } else if (flag == 3) {
-        segmento.movenY()
-        element.style.setProperty('top', segmento.y + "px");
-        console.log('strzalkadol');
+
+        for (var i = 0; i <= s.length; i++) {
+
+            s[i].movenY()
+            element.style.setProperty('top', segmento.y + "px");
+            console.log('strzalkadol');
+
+        }
+
     }
 
     mealEngine();
@@ -124,7 +162,7 @@ const hitboxEngine = function (v, min, max) {
 
 const mealEngine = function () {
 
-    if (document.querySelector('#field').children.length == 1) {
+    if (document.querySelector('#field').children.length == segmento.points.length + 1) {
         randX = randomInt(0, 870);
         randY = randomInt(0, 570);
         const m = document.createElement('div');
@@ -135,8 +173,23 @@ const mealEngine = function () {
     }
 
     if (hitboxEngine(segmento.x, randX - 30, randX + 30) && hitboxEngine(segmento.y, randY - 30, randY + 30)) {
-        segmento.points++;
+        segmento.points[segmento.points.length] = 1;
         document.querySelector('#field').removeChild(document.querySelector(".meal"));
+        s[segmento.points.length] = document.createElement('div');
+        s[segmento.points.length].classList.add("segment");
+        if (flag == 1 || flag == 3) {
+            s[segmento.points.length].style.setProperty('left', segmento.x + "px");
+            s[segmento.points.length].style.setProperty('top', segmento.y + 32 + "px");
+
+        } else {
+            s[segmento.points.length].style.setProperty('left', segmento.x + 32 + "px");
+            s[segmento.points.length].style.setProperty('top', segmento.y + "px");
+
+        }
+
+        field.appendChild(s[segmento.points.length]);
+        s.reverse();
+
     }
 
 
@@ -144,7 +197,7 @@ const mealEngine = function () {
 
 const pointCounter = function () {
 
-    document.querySelector(".contentBox").innerHTML = `Points:${segmento.points}`; //REMEMBER - BIG LETTERS (inner --> HTML <-- not Html)!
+    document.querySelector(".contentBox").innerHTML = `Points:${segmento.points.length}`; //REMEMBER - BIG LETTERS (inner --> HTML <-- not Html)!
 
 }
 
