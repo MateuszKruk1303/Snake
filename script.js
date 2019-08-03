@@ -11,7 +11,7 @@ class Segment {
     movepX() {
         if (this.x < 870) {
 
-            this.x += 2;
+            this.x += 30;
 
         } else {
 
@@ -21,7 +21,7 @@ class Segment {
     movenX() {
         if (this.x > 0) {
 
-            this.x -= 2;
+            this.x -= 30;
 
         } else {
 
@@ -33,7 +33,7 @@ class Segment {
     movepY() {
         if (this.y > 0) {
 
-            this.y -= 2;
+            this.y -= 30;
 
         } else {
 
@@ -46,7 +46,7 @@ class Segment {
 
         if (this.y < 570) {
 
-            this.y += 2;
+            this.y += 30;
 
         } else {
 
@@ -85,9 +85,8 @@ s[0] = seg[0];
 var segmeX = 300;
 var segmeY = 60;
 var pointz = 0;
-
 var c;
-var i = 1;
+let i = 0;
 
 
 
@@ -161,20 +160,35 @@ const directionm = function () {
 
 const othermovement = function () {
 
-    for (let i = 1; i <= seg.length - 1; i++) {
 
-        setTimeout(function () {
+    // if (i > 0) {
 
-            nju = document.querySelector(`.segment:nth-child(${i})`);
-            nju.style.setProperty('top', seg[s.length - 1].y + 'px');
-            nju.style.setProperty('left', seg[s.length - 1].x + 'px');
+    //     nju = s[i]
+    //     nju.style.setProperty('top', seg[i + 1].y + 'px');
+    //     nju.style.setProperty('left', seg[i + 1].x + 'px');
+    //     --i;
 
-        }, i * 50)
+
+
+    // } else {
+
+    //     i = s.length - 2;
+    //     nju = s[i]
+    //     nju.style.setProperty('top', seg[i + 1].y + 'px');
+    //     nju.style.setProperty('left', seg[i + 1].x + 'px');
+    //     --i;
+    // }
+
+    i = s.length - 2
+
+    for (i = s.length - 2; i > 0; i--) {
+
+        nju = s[i];
+        nju.style.setProperty('top', seg[i + 1].y + 'px');
+        nju.style.setProperty('left', seg[i + 1].x + 'px');
+
 
     }
-
-
-
 
 }
 
@@ -254,7 +268,6 @@ const pointCounter = function () {
 
 
 window.addEventListener('keydown', direction);
-working = window.setInterval(directionm, 10);
-working4 = window.setInterval(othermovement, 10);
+working = window.setInterval(directionm, 50);
 working2 = window.setInterval(mealEngine, 10);
 working3 = window.setInterval(pointCounter, 10);
