@@ -1,6 +1,6 @@
 Cosmic hungry worm aka "snake"
 
-Change direction of movement by clicking arrows. But we are not allowed to change direction immediately form left to right / right to left and from up to down / down to up.
+Change direction of movement by clicking arrows. We are not allowed to change direction immediately form left to right / right to left and from up to down / down to up.
 
 Collision with any segment stops our game - it means you have lost. same as impact with wall / border of our playing field.
 
