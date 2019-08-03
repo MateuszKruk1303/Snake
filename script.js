@@ -15,6 +15,7 @@ class Segment {
 
         } else {
 
+            clearInterval(working);
         }
     }
 
@@ -25,6 +26,7 @@ class Segment {
 
         } else {
 
+            clearInterval(working);
 
         }
 
@@ -37,6 +39,7 @@ class Segment {
 
         } else {
 
+            clearInterval(working);
 
         }
 
@@ -50,17 +53,16 @@ class Segment {
 
         } else {
 
+            clearInterval(working);
 
         }
 
     }
 
-}
-
-class Next extends Segment {
-
-
-
+    setPos(x, y) {
+        this.x = x;
+        this.y = y;
+    }
 
 }
 
@@ -72,7 +74,6 @@ class Next extends Segment {
 
 var flag = 0;
 const seg = [];
-seg[0] = new Segment(300, 60);
 var element = document.querySelector(".segment")
 var randX = 0;
 var randX = 0;
@@ -81,12 +82,14 @@ var hitboxY = 0;
 var y = 0;
 var segments = [];
 const s = [];
-s[0] = seg[0];
+s[0] = element;
+seg[0] = new Segment(300, 60);
 var segmeX = 300;
 var segmeY = 60;
 var pointz = 0;
 var c;
 let i = 0;
+let prev
 
 
 
@@ -102,13 +105,13 @@ function Delay(i) {
 
 const direction = function (e) {
 
-    if (e.keyCode == 37) {
+    if (e.keyCode == 37 && flag != 2) {
         flag = 0;
-    } else if (e.keyCode == 38) {
+    } else if (e.keyCode == 38 && flag != 3) {
         flag = 1;
-    } else if (e.keyCode == 39) {
+    } else if (e.keyCode == 39 && flag != 0) {
         flag = 2;
-    } else if (e.keyCode == 40) {
+    } else if (e.keyCode == 40 && flag != 1) {
         flag = 3;
     }
 }
@@ -119,6 +122,8 @@ const direction = function (e) {
 //down - 40
 
 const directionm = function () {
+
+    mealEngine();
 
     if (flag == 0) { //left
 
@@ -153,46 +158,34 @@ const directionm = function () {
 
     }
 
-    mealEngine();
 }
 
 
 
 const othermovement = function () {
 
+    for (i = 0; i < seg.length - 1; i++) {
+        seg[i].setPos(seg[i + 1].x, seg[i + 1].y);
+        s[i].style.setProperty('left', seg[i].x + "px");
+        s[i].style.setProperty('top', seg[i].y + "px");
+    }
 
-    // if (i > 0) {
+}
 
-    //     nju = s[i]
-    //     nju.style.setProperty('top', seg[i + 1].y + 'px');
-    //     nju.style.setProperty('left', seg[i + 1].x + 'px');
-    //     --i;
+const hitboxSnake = function () {
 
 
+    for (j = 0; j < seg.length - 1; j++) {
 
-    // } else {
+        if ((seg[seg.length - 1].x == seg[j].x) && (seg[seg.length - 1].y == seg[j].y)) {
 
-    //     i = s.length - 2;
-    //     nju = s[i]
-    //     nju.style.setProperty('top', seg[i + 1].y + 'px');
-    //     nju.style.setProperty('left', seg[i + 1].x + 'px');
-    //     --i;
-    // }
-
-    i = s.length - 2
-
-    for (i = s.length - 2; i > 0; i--) {
-
-        nju = s[i];
-        nju.style.setProperty('top', seg[i + 1].y + 'px');
-        nju.style.setProperty('left', seg[i + 1].x + 'px');
+            clearInterval(working);
+        }
 
 
     }
 
 }
-
-
 
 
 const hitboxEngine = function (v, min, max) {
@@ -219,35 +212,36 @@ const mealEngine = function () {
         s[seg.length] = document.createElement('div');
         s[seg.length].classList.add("segment");
         pointz++;
+        pointCounter();
 
 
         if (flag == 1) {
 
-            seg[seg.length] = new Segment(seg[seg.length - 1].x, seg[seg.length - 1].y - 32);
+            seg[seg.length] = new Segment(seg[seg.length - 1].x, seg[seg.length - 1].y - 30);
             s[seg.length - 1].style.setProperty('left', seg[seg.length - 1].x + "px");
-            s[seg.length - 1].style.setProperty('top', seg[seg.length - 1].y - 32 + "px");
+            s[seg.length - 1].style.setProperty('top', seg[seg.length - 1].y - 30 + "px");
             field.appendChild(s[seg.length - 1]);
 
         } else if (flag == 3) {
 
-            seg[seg.length] = new Segment(seg[seg.length - 1].x, seg[seg.length - 1].y + 32);
+            seg[seg.length] = new Segment(seg[seg.length - 1].x, seg[seg.length - 1].y + 30);
             s[seg.length - 1].style.setProperty('left', seg[seg.length - 1].x + "px");
-            s[seg.length - 1].style.setProperty('top', seg[seg.length - 1].y + 32 + "px");
+            s[seg.length - 1].style.setProperty('top', seg[seg.length - 1].y + 30 + "px");
             field.appendChild(s[seg.length - 1]);
 
 
 
         } else if (flag == 2) {
 
-            seg[seg.length] = new Segment(seg[seg.length - 1].x + 32, seg[seg.length - 1].y);
-            s[seg.length - 1].style.setProperty('left', seg[seg.length - 1].x + 32 + "px");
+            seg[seg.length] = new Segment(seg[seg.length - 1].x + 30, seg[seg.length - 1].y);
+            s[seg.length - 1].style.setProperty('left', seg[seg.length - 1].x + 30 + "px");
             s[seg.length - 1].style.setProperty('top', seg[seg.length - 1].y + "px");
             field.appendChild(s[seg.length - 1]);
 
         } else {
 
-            seg[seg.length] = new Segment(seg[seg.length - 1].x - 32, seg[seg.length - 1].y);
-            s[seg.length - 1].style.setProperty('left', seg[seg.length - 1].x - 32 + "px");
+            seg[seg.length] = new Segment(seg[seg.length - 1].x - 30, seg[seg.length - 1].y);
+            s[seg.length - 1].style.setProperty('left', seg[seg.length - 1].x - 30 + "px");
             s[seg.length - 1].style.setProperty('top', seg[seg.length - 1].y + "px");
             field.appendChild(s[seg.length - 1]);
 
@@ -259,6 +253,7 @@ const mealEngine = function () {
 
 }
 
+
 const pointCounter = function () {
 
     document.querySelector(".contentBox").innerHTML = `Points:${pointz}`; //REMEMBER - BIG LETTERS (inner --> HTML <-- not Html)!
@@ -268,6 +263,12 @@ const pointCounter = function () {
 
 
 window.addEventListener('keydown', direction);
-working = window.setInterval(directionm, 50);
-working2 = window.setInterval(mealEngine, 10);
-working3 = window.setInterval(pointCounter, 10);
+working = window.setInterval(() => {
+
+    othermovement();
+    directionm();
+    mealEngine();
+    hitboxSnake();
+
+
+}, 60);

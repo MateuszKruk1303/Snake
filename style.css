@@ -5,33 +5,41 @@
 }
 
 body {
-  background-color: black;
   width: 100vw;
   height: 100vh;
+  background-image: url("bckgr2.jpg");
 }
 
 #field {
   position: relative;
-  background-color: gray;
+  background-image: url("surface.jpg");
   width: 900px;
   height: 600px;
-  top: 5%;
-  left: 10%;
+  top: 7%;
+  left: 0%;
+  right: 0%;
+  border: 3px double greenyellow;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .segment {
   position: absolute;
-  background-color: green;
+  background-color: greenyellow;
   width: 30px;
   height: 30px;
-  left: 40%;
+  left: 50%;
   top: 10%;
+  box-sizing: border-box;
+  border: 1px double black;
 }
 
 .meal {
 
   position: absolute;
-  background-color: yellow;
+  background-color: blueviolet;
+  box-sizing: border-box;
+  border: 1px double rebeccapurple;
   width: 30px;
   height: 30px;
   left: 40%;
@@ -42,15 +50,17 @@ body {
 .contentBox {
 
   position: relative;
-  width: 400px;
+  width: 900px;
   height: 50px;
-  background-color: azure;
-  color: red;
-  float: right;
-  right: 30px;
-  top: -550px;
+  background-color: gray;
+  color: white;
   text-align: center;
   padding-top: 13px;
-
+  top: 3vh;
+  box-sizing: border-box;
+  border: 3px ridge violet;
+  font-weight: 700;
+  margin-right: auto;
+  margin-left: auto;
 
 }
